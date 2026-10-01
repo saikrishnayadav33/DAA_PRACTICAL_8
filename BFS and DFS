@@ -1,0 +1,54 @@
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D', 'E'],
+    'C': ['F'],
+    'D': [],
+    'E': ['F'],
+    'F': []
+}
+
+# ---------------- BFS ----------------
+def bfs(start):
+    visited = []
+    queue = [start]
+
+    while queue:
+        node = queue.pop(0)
+
+        if node not in visited:
+            visited.append(node)
+
+           
+            for neighbour in graph[node]:
+                if neighbour not in visited:
+                    queue.append(neighbour)
+
+    return visited
+
+
+# ---------------- DFS ----------------
+def dfs(start, visited=None):
+    if visited is None:
+        visited = []
+
+    visited.append(start)
+
+   
+    for neighbour in graph[start]:
+        if neighbour not in visited:
+            dfs(neighbour, visited)
+
+    return visited
+
+
+# ---------------- Main Program ----------------
+
+print("Graph:")
+for node in graph:
+    print(node, "->", graph[node])
+
+print("\nBFS Traversal:")
+print(bfs('A'))
+
+print("\nDFS Traversal:")
+print(dfs('A'))
